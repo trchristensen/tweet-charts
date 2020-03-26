@@ -10,9 +10,8 @@ var T = new Twit({
   strictSSL: true // optional - requires SSL certificates to be valid.
 }); 
 
-
-var options = {
-  user_id: "ShillaInManila",
+const options = {
+  screen_name: "PeterSchiff",
   trim_user: true,
   count: 1000,
   exclude_replies: true,
@@ -20,11 +19,13 @@ var options = {
 };
 
 T.get("statuses/user_timeline", options, function(err, data) {
+
+    const keywords = ['Bitcoin', 'bitcoin', 'btc', 'btc'];
   
-  data.forEach((tweet) => {
-      console.log(tweet.text)
-  })
+    keywords.forEach(keyword => {
+        data.filter(tweet => {
+          if (tweet.text.includes(keyword)) console.log(tweet.text);
+        });
+    })
+
 });
-
-
-// GET statuses/show/:id
